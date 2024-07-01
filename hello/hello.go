@@ -23,6 +23,6 @@ func main() {
 	}
 
 	// If no error was returned, print the returned message
-	// to the console.//
+	// to the console.//test added
 	fmt.Println(message)
 }
