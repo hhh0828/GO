@@ -14,3 +14,10 @@ func test_Minus_Plus() {
 	fmt.Printf("z:%08b z>>2: %08b z>>2: %d\n", uint8(z), z>>2, z>>2)
 	fmt.Printf("w:%08b w>>2: %08b w>>2: %d\n", w, w>>2, w>>2)
 }
+
+// func + 이름 + (매개변수) 반환타입 {}
+func add(a int, b int) int {
+
+	return a + b
+
+}
