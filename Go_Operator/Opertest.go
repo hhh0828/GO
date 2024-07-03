@@ -18,11 +18,22 @@ func main() {
 
 	//함수 스터디
 	//test_Minus_Plus()
-	var a int = 126
-	var b int = 3000
+	//var a int = 126
+	//var b int = 3000
+	//var d float64 = 9999
+	//var f float64 = 7890
 
 	//다른 go파일에 쓰인 파일은 반드시 저장 후 사용 하기 바람.
-	c := add(a, b)
-	fmt.Println(c)
-	fmt.Println(add(a, b))
+	//c := add(a, b)
+	//fmt.Println(c)
+	//fmt.Println(add(a, b))
+	//fmt.Println(Divide(d, f))
+
+	//선언과 동시에 변수 대입하기
+	//k, succ := Divide(d, f)
+	//fmt.Println(k, succ)
+
+	var a int = 10
+	Recursivetest(a)
+	fmt.Println("the test has been completed")
 }
