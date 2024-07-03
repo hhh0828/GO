@@ -1,10 +1,14 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+
+	"example.com/greetings"
+)
 
 //import "fmt"
 
-//Bit Shift Overflow test x GO
+// Bit Shift Overflow test x GO
 func main() {
 
 	//var x int8 = 8
@@ -36,4 +40,6 @@ func main() {
 	var a int = 10
 	Recursivetest(a)
 	fmt.Println("the test has been completed")
+	var ab string = "hhh"
+	greetings.Hello(ab)
 }

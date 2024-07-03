@@ -1,8 +1,10 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+)
 
-//테스트
+// 테스트
 func test_Minus_Plus() {
 	var x int8 = 16
 	var y int8 = -128
@@ -23,7 +25,7 @@ func add(a int, b int) int {
 
 }
 
-//마이너스
+// 마이너스
 func minus(a int, b int) int {
 
 	return a - b
