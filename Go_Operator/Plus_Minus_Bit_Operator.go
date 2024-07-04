@@ -16,6 +16,7 @@ func test_Minus_Plus() {
 	fmt.Printf("y:%08b y>>2: %08b y>>2: %d\n", uint8(y), y>>2, y>>2)
 	fmt.Printf("z:%08b z>>2: %08b z>>2: %d\n", uint8(z), z>>2, z>>2)
 	fmt.Printf("w:%08b w>>2: %08b w>>2: %d\n", w, w>>2, w>>2)
+	math.min
 }
 
 // func + 이름 + (매개변수) 반환타입 {}

@@ -1,13 +1,13 @@
-package main
+package main123
 
 import "fmt"
 
-func var1() {
+func var123(a, b, c, d int) {
 
-	var a int = 3
-	var b int
-	var c = 4
-	d := 5
+	a = 1
+	b = 2
+	c = 3
+	d = 4
 
 	fmt.Println(a, b, c, d)
 
