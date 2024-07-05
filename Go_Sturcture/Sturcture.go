@@ -73,3 +73,5 @@ func inform1(user sp_managedbadstudent) {
 }
 
 // Java의 클래스와 매우 흡사함.
+// memory alignment - 메모리 정렬 - sorting, add the empty space in memory with the padding.
+//CPU 속도를 고려해서 패딩을 추가 한다,
