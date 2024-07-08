@@ -1,5 +1,6 @@
 package main
 
+//어우.. .외부로 공개되는건 func에서 case sensitive -
 import (
 	"usepackage/custompkg"
 
