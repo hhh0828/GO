@@ -22,6 +22,7 @@ type Postoffice struct {
 	///
 }
 
+// 구현
 func (po Postoffice) Send(parcel string) {
 	fmt.Println(parcel)
 }
