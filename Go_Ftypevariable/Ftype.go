@@ -33,7 +33,7 @@ func getOperator(op string) Opfunction {
 	}
 }
 
-//defendency injection - use interface or literal function. those are used to be created when 결합도 줄일때.
+//defendency injection - use interface or literal function. those are used to be created when decreasing cohession
 
 func main() {
 	oper := getOperator("+")
