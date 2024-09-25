@@ -25,6 +25,11 @@ func main() {
 	fmt.Println(a.Array[100])
 	fmt.Println(a.Value)
 
+	fmt.Println(Newuser(32, "hyunho"))
+	abc := Newuser(32, "hyunho")
+	fmt.Println(&abc)
+	//abc는 Newuser 를 가르키는 포인터임. 포인터를 통해 값에 접근하는것이 가능함.
+
 }
 
 //Pointer의 대한 이해는 좌항은 공간 , 우항은 값 ...
@@ -61,3 +66,28 @@ func ChangeDatafunc2(arg Data) Data {
 // 궁금점 함수 콜스택과 관련 또한 메모리 사용과 관련하여 가비지컬렉터가 언제 일하냐.
 // sweap and mark 마크 하고 지우고 마크하고 지우고...
 // 참조가 더이상 발생하지 않을때 제거
+
+//Escape Analysis
+//스택... 힙..
+//스택에서 함수가 제거되지만.. Escape Analysis 힙으로 들어감.
+//GO포인터의 특징임.
+
+//ex
+
+type user struct {
+	age  uint8
+	name string
+}
+
+func Newuser(age uint8, name string) *user {
+
+	u := &user{age: age, name: name}
+
+	return u
+
+}
+
+//need to check if belows are fact.
+//스택에서 함수가 닫히면서 복사된 user포인터 인스턴스가 사라져야하지만,
+//is it possible to customize the GC,
+//GO EscapAnalysis를 통해 삭제하지 않고 u라는 값의 주소를 힙공간에 할당하고 값을 반환한다.
