@@ -15,7 +15,6 @@ type Account struct {
 	Balance int
 }
 
-/*
 var wg sync.WaitGroup
 
 func SumAtoB(a, b int) {
@@ -28,7 +27,7 @@ func SumAtoB(a, b int) {
 	fmt.Printf("%d부터%d까지 더한값은 %d 입니다", a, b, sum)
 	wg.Done()
 }
-*/
+
 /*
 func PrintHangul() {
 
