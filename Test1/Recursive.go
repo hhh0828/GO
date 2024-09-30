@@ -15,6 +15,12 @@ func main() {
 	for _, pat := range a {
 		fmt.Println(pat)
 	}
+
+	ab := 1 // ab는 1의 메모리 공간을 가리키는 이름
+	bc := 2 // bc는 2의 메모리 공간을 가리키는 이름
+	fmt.Printf("바뀌기 전값 ab = %d, bc = %d\n", ab, bc)
+	Swap(&ab, &bc)
+	fmt.Printf("바꾸면? ab = %d, bc = %d\n", ab, bc)
 }
 
 //실행흐름 - 일반화
@@ -32,6 +38,18 @@ func recursive(x, n int) int {
 //몰랐던 문제 Capture 문제 // >> wg 관련 고루틴 리터럴 함수 관련 외부 변수 캡쳐 다시보기.
 //맵을 순회할때 for 의 range문 관련해서...  객체에 직접 접근 ?
 
+//메모리 주소 복사. 나는 바보다. ㅋㅋ 한번씩 더 생각해보자. 함수 내부에서는 값복사가 일어나니까.
+//메모리 주소를 반환할수 없으니까. 포인터가 가리키는 내부의 값을 변경해주자... 그러면 Return이 없어도 함수는 명시적 으로 동작한다..
+//흠 바보 바보바보. 조금 꼼꼼히 보자. 제발좀.
+func Swap(ac, bc *int) {
+	fmt.Println(ac)
+	fmt.Println(bc)
+	temp := *ac //여기서는 바뀌는데... ac, bc는 값복사가 발생함.
+	*ac = *bc   // 가리키는 공간의 값을 교환 해준다.
+	fmt.Println(ac)
+	*bc = temp //
+	fmt.Println(bc)
+}
 func NewPatients(name string, discount, Age int) Patients {
 	a := new(Patients)
 	a.Age = Age // 포인터지만 접근 가능/편의상
