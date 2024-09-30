@@ -1,26 +1,81 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+	"sync"
+	"time"
+)
+
+var wg sync.WaitGroup
 
 func main() {
+	/*
+		a := make(map[string]Patients, 4) // 터커 맵강의 한번 더보자...ㅜ_ㅜ
+		//해쉬함수의 배열이고 배열의
+		a["1"] = NewPatients("홍", 20, 32)
+		a["2"] = NewPatients("김", 20, 33)
+		a["3"] = NewPatients("테", 30, 1)
+		a["4"] = NewPatients("정", 5, 15)
 
-	a := make(map[string]Patients, 4) // 터커 맵강의 한번 더보자...ㅜ_ㅜ
-	//해쉬함수의 배열이고 배열의
-	a["1"] = NewPatients("홍", 20, 32)
-	a["2"] = NewPatients("김", 20, 33)
-	a["3"] = NewPatients("테", 30, 1)
-	a["4"] = NewPatients("정", 5, 15)
+		mapcycle(&a)
+		for _, pat := range a {
+			fmt.Println(pat)
+		}
 
-	mapcycle(&a)
-	for _, pat := range a {
-		fmt.Println(pat)
-	}
+		ab := 1 // ab는 1의 메모리 공간을 가리키는 이름
+		bc := 2 // bc는 2의 메모리 공간을 가리키는 이름
+		fmt.Printf("바뀌기 전값 ab = %d, bc = %d\n", ab, bc)
+		Swap(&ab, &bc)
+		fmt.Printf("바꾸면? ab = %d, bc = %d\n", ab, bc)
+	*/
+	//문제에서 무엇을 얘기하는가. // wg를 등록하고 1개의 작업을 설정하고
+	//
+	wg.Add(1)
 
-	ab := 1 // ab는 1의 메모리 공간을 가리키는 이름
-	bc := 2 // bc는 2의 메모리 공간을 가리키는 이름
-	fmt.Printf("바뀌기 전값 ab = %d, bc = %d\n", ab, bc)
-	Swap(&ab, &bc)
-	fmt.Printf("바꾸면? ab = %d, bc = %d\n", ab, bc)
+	a1 := make(chan int, 4)
+	var a3 = [4]int{1, 2, 3, 4}
+	// go의 리터럴 함수는 실행될때ㅑ
+	go func() {
+
+		for _, v := range a3 {
+			time.Sleep(time.Second)
+			a1 <- v
+		}
+		close(a1)
+		// 다 담았으면 닫어주세용 아니면 계속기다려서 좀비고루틴 되고 데드락걸림
+		//.. 에러 스택을 보자.,...
+		/*레퍼런스 https://cs.opensource.google/go/go/+/refs/tags/go1.23.1:src/sync/waitgroup.go
+					fatal error: all goroutines are asleep - deadlock!
+		//무한대기가 걸리는지 체크하는것같다...
+
+			goroutine 1 [semacquire]:
+			sync.runtime_Semacquire(0xc00008a030?)
+			        C:/Program Files/Go/src/runtime/sema.go:62 +0x25
+			sync.(*WaitGroup).Wait(0x0?)
+			        C:/Program Files/Go/src/sync/waitgroup.go:116 +0x48
+			main.main()
+			        C:/Users/hyunho/GO_clone/GO/Test1/Recursive.go:57 +0x111
+
+			goroutine 20 [chan receive]:
+			main.main.func2()
+			        C:/Users/hyunho/GO_clone/GO/Test1/Recursive.go:51 +0x76
+			created by main.main in goroutine 1
+			        C:/Users/hyunho/GO_clone/GO/Test1/Recursive.go:48 +0x105
+			exit status 2
+		*/
+	}()
+
+	go func() {
+
+		//기다린다.
+		for v := range a1 {
+			fmt.Println(v)
+		}
+		wg.Done()
+
+	}()
+	wg.Wait()
+
 }
 
 //실행흐름 - 일반화
@@ -38,9 +93,9 @@ func recursive(x, n int) int {
 //몰랐던 문제 Capture 문제 // >> wg 관련 고루틴 리터럴 함수 관련 외부 변수 캡쳐 다시보기.
 //맵을 순회할때 for 의 range문 관련해서...  객체에 직접 접근 ?
 
-//메모리 주소 복사. 나는 바보다. ㅋㅋ 한번씩 더 생각해보자. 함수 내부에서는 값복사가 일어나니까.
-//메모리 주소를 반환할수 없으니까. 포인터가 가리키는 내부의 값을 변경해주자... 그러면 Return이 없어도 함수는 명시적 으로 동작한다..
-//흠 바보 바보바보. 조금 꼼꼼히 보자. 제발좀.
+// 메모리 주소 복사. 나는 바보다. ㅋㅋ 한번씩 더 생각해보자. 함수 내부에서는 값복사가 일어나니까.
+// 메모리 주소를 반환할수 없으니까. 포인터가 가리키는 내부의 값을 변경해주자... 그러면 Return이 없어도 함수는 명시적 으로 동작한다..
+// 흠 바보 바보바보. 조금 꼼꼼히 보자. 제발좀.
 func Swap(ac, bc *int) {
 	fmt.Println(ac)
 	fmt.Println(bc)
@@ -101,7 +156,7 @@ func mapcycle(a *map[string]Patients) map[string]Patients {
 //포인터를 다룰때 꼼꼼히 확인해보자... 가장 중요한건 이 포인터가 가르키고있는것 즉 메모리 공간임
 
 //Map은 엄청 많이 다룰것같다. 터커 강의 다시보기. 패키지 뜯어보기.
-
+//직접 구현해보기
 //손코딩 해보기. // 공책에 직접 코딩을 해보고, 직접 옮겨서 해보기. 알고리즘/자료구조 문제를 풀때 한번 해보자.
 
 //1  두수 스왑 포인터로
