@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"strconv"
 	"sync"
 	"time"
 )
@@ -76,6 +77,11 @@ func main() {
 	}()
 	wg.Wait()
 
+	//Birthday 6자리 8자리 바꾸기....
+	//IDE없이 머리속에서 코딩하는 습관을 길러보자. .,.......
+	fmt.Println(Birthday("731818"))
+	fmt.Println(Birthday("930828"))
+	fmt.Println(Birthday("130828"))
 }
 
 //실행흐름 - 일반화
@@ -183,3 +189,35 @@ func mapcycle(a *map[string]Patients) map[string]Patients {
 
 //이제앞을 코딩은 손코딩으로 하고 컴퓨터로 옮기자... 실수를 줄이는데 도움이 될 것 같다. IDE 의존 금지.
 //기본기 퍼펙트하게 하자....
+
+//730918
+//930828
+//131218
+
+// 조건 100세까지 살수있음
+
+// 73년생은 19를 붙여햐고
+// 93년생도 19
+// 13년생은 19를 붙이면 안됨 그래서
+// if 2024 - 13 + 1900  > 0
+
+func Birthday(birth string) string {
+	//배열은 불변임 그래서 바이트 타입배열로 값을 복사해와서.
+	bytesbirth := []byte(birth)
+	//앞에 두자리는 인덱
+	six, _ := strconv.Atoi(birth)
+
+	two := six / 10000
+	//monthandday := six % 10000 // 0을 안가져와서 폐기함.
+
+	bytesbirth = bytesbirth[2:6] //인덱스 2부터 93 [0828] 슬라이싱 3(2)번째 인덱스부터 6번째 까지 슬라이싱.
+
+	if 2024-(two+1900) > 100 {
+		result := two + 2000
+		return strconv.Itoa(result) + string(bytesbirth)
+	} else {
+		result := two + 1900
+		return strconv.Itoa(result) + string(bytesbirth)
+	}
+
+}
