@@ -31,6 +31,7 @@ func main() {
 	*/
 	//문제에서 무엇을 얘기하는가. // wg를 등록하고 1개의 작업을 설정하고
 	//
+
 	wg.Add(1)
 
 	a1 := make(chan int, 4)
@@ -82,6 +83,7 @@ func main() {
 	fmt.Println(Birthday("731818"))
 	fmt.Println(Birthday("930828"))
 	fmt.Println(Birthday("130828"))
+
 }
 
 //실행흐름 - 일반화
@@ -111,6 +113,10 @@ func Swap(ac, bc *int) {
 	*bc = temp //
 	fmt.Println(bc)
 }
+
+
+
+
 func NewPatients(name string, discount, Age int) Patients {
 	a := new(Patients)
 	a.Age = Age // 포인터지만 접근 가능/편의상
@@ -144,13 +150,17 @@ func mapcycle(a *map[string]Patients) map[string]Patients {
 	*/
 }
 
+
+
+
+
 //what i feel currently.
 
 //질문 > 이미지 리사이즈 할때, 서버에서 파일을 받고 식별 시, ... 어떻게 했나 URL + UUID를 저장함.... 질문의 요지는 아마
 //외부라이브러리를 사용하면서 이게 어떤 라이브러리였는지 확인하고 다루었는지에 대해서... 일것같음 // 이 라이브러리는 보긴했는데..//내가
 
 //계단 오르기 문제.ex N개의 계단을 1개 또는 2개 오른다고 했을때. 그 계단을 오르는 가지수를 구하여라.
-//순열과 조합? 알고리즘 공부가 필요함
+//순열과 조합? 알고리즘 공부가 필요함 // dyanmicprogram인가 ? 뭐인가.. 흠 ... 
 
 //시간복잡도 다시 공부 배열 리스트 순회를 할때..그 ..흠.. 문제 이해부터해야함.
 
