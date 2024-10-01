@@ -66,8 +66,13 @@ func main() {
 	for i := 0; i < T; i++ {
 		n1, _, _ := reader.ReadLine()
 		n, _ := strconv.Atoi(string(n1))
-		a := make([]int, n+1)
-		printprint(fibo(n-1, &a), fibo(n, &a))
+		if n == 0 {
+			writer.WriteString("1 0" + "\n")
+		} else {
+			a := make([]int, n+1)
+			printprint(fibo(n-1, &a), fibo(n, &a))
+		}
+
 	}
 
 	/*
