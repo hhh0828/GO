@@ -42,7 +42,9 @@ what is purpose to resolve the problem?
 //문제
 func main() {
 	a := Stair(100)
+	a2 := Stairver2(100)
 	fmt.Println(a)
+	fmt.Println(a2)
 }
 
 //입력값 받고 make 함수로..배열초기화 가능.
@@ -71,4 +73,21 @@ func Stair(N int) int {
 	}
 
 	return returns[N]
+}
+
+//뭔가 밑에서 올라감 재귀랑 다른맛이있네
+func Stairver2(N int) int {
+	//흠 계단값이 주어짐.
+	a := make([]int, N+1)
+	a[0] = 0
+	a[1] = 1
+	a[2] = 2
+
+	for i := 3; i <= N; i++ {
+		if a[i] == 0 {
+			a[i] = a[i-1] + a[i-2] //  배열에 랜덤 요소 접근은 O(1)
+		}
+	}
+	return a[N]
+	//시간복잡도는 For문한번 순회 O(n)
 }
