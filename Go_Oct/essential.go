@@ -1,6 +1,10 @@
 package main
 
-import "fmt"
+import (
+	"bufio"
+	"os"
+	"strconv"
+)
 
 //문제에 대한 접근 방법 고찰.
 //그 전에.. 이건이 문제인가? 에대한 정의? 인식?
@@ -39,15 +43,42 @@ what is purpose to resolve the problem?
 
 //
 
-//문제
-func main() {
-	a := Stair(100)
-	a2 := Stairver2(100)
-	fmt.Println(a)
-	fmt.Println(a2)
+// 문제
+var (
+	reader *bufio.Reader
+	writer *bufio.Writer
+)
+
+func init() {
+	reader = bufio.NewReaderSize(os.Stdin, 1000)
+	writer = bufio.NewWriter(os.Stdout)
 }
 
-//입력값 받고 make 함수로..배열초기화 가능.
+func main() {
+	defer writer.Flush()
+
+	T1, _, _ := reader.ReadLine()
+
+	T, _ := strconv.Atoi(string(T1))
+
+	//fmt.Println(fibo(n, &a))
+
+	for i := 0; i < T; i++ {
+		n1, _, _ := reader.ReadLine()
+		n, _ := strconv.Atoi(string(n1))
+		a := make([]int, n+1)
+		printprint(fibo(n-1, &a), fibo(n, &a))
+	}
+
+	/*
+		a := Stair(100)
+		a2 := Stairver2(100)
+		fmt.Println(a)
+		fmt.Println(a2)
+	*/
+}
+
+// 입력값 받고 make 함수로..배열초기화 가능.
 var returns [101]int
 
 func Stair(N int) int {
@@ -75,7 +106,7 @@ func Stair(N int) int {
 	return returns[N]
 }
 
-//뭔가 밑에서 올라감 재귀랑 다른맛이있네
+// 뭔가 밑에서 올라감 재귀랑 다른맛이있네
 func Stairver2(N int) int {
 	//흠 계단값이 주어짐.
 	a := make([]int, N+1)
@@ -90,4 +121,27 @@ func Stairver2(N int) int {
 	}
 	return a[N]
 	//시간복잡도는 For문한번 순회 O(n)
+}
+
+func fibo(n int, m *[]int) int {
+
+	if n == 0 {
+		return 0
+	}
+
+	if n == 1 {
+		return 1
+	}
+
+	if (*m)[n] == 0 {
+		(*m)[n] = fibo(n-2, m) + fibo(n-1, m)
+	}
+	return (*m)[n]
+}
+
+func printprint(a, b int) {
+	converteda := strconv.Itoa(a)
+	convertedb := strconv.Itoa(b)
+
+	writer.WriteString(converteda + " " + convertedb + "\n")
 }
