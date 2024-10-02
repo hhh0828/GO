@@ -1,6 +1,11 @@
 package main
 
-import "fmt"
+import (
+	"bufio"
+	"fmt"
+	"os"
+	"strconv"
+)
 
 func fibo(N int) int {
 	if N < 2 {
@@ -25,13 +30,32 @@ func hanoi(Start, End, Extra, Circle int) {
 }
 
 func MoveCircle(Start, End, Circle int) {
-
-	fmt.Printf("%d번째 원판을 %d번째 기둥에서 %d번째 기둥으로 옮겼습니다\n", Circle, Start, End)
+	s := strconv.Itoa(Start)
+	e := strconv.Itoa(End)
+	//c := strconv.Itoa(Circle)
+	Writer.WriteString(s + " " + e + "\n")
 
 }
 
-func main() {
+var Writer *bufio.Writer
 
-	fmt.Println(fibo(9))
-	hanoi(1, 3, 2, 3)
+func main() {
+	Writer = bufio.NewWriterSize(os.Stdout, 200000000)
+	//fmt.Println(fibo(9))
+	defer Writer.Flush()
+	n := 0
+	fmt.Scan(&n)
+
+	fmt.Println(hanoi2(n) - 1)
+	hanoi(1, 3, 2, n)
+}
+
+func hanoi2(n int) int {
+
+	if n == 1 {
+		return 2
+	}
+
+	return hanoi2(n-1) * 2
+
 }

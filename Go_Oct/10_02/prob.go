@@ -28,6 +28,9 @@ func pr(a []byte, i, j int) int {
 	} else if a[i] != a[j] {
 		return 0
 	}
+	if len(a) == 1 {
+		return 0
+	}
 	//들어가는 시점에서 위의 가정을 제외하고 다른 계산의 가정을 없애야함..
 	count++
 	return pr(a, i+1, j-1) //함수 스택 추가. //return (tpye int)

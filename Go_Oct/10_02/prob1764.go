@@ -3,6 +3,7 @@ package main
 //재귀, dynamic program 과 친해져보기...
 import (
 	"bufio"
+	"fmt"
 	"os"
 	"strconv"
 )
@@ -18,18 +19,22 @@ func main() {
 	//fmt.Println(prh(bytekora, 0, len(bytekora)-1))
 	//fmt.Println(pr(bytekora, 0, len(bytekora)-1))
 	//fmt.Println(factoraldynp(10))
-	T := Getint()
-	defer Writer.Flush()
-	count = 1 // 들어가는 시점을 1로 ^_^ 0부터시작이아니니까..
-	for i := 0; i < T; i++ {
-		thestr := Getstrline()
+	/*
+		T := Getint()
+		defer Writer.Flush()
+		count = 1 // 들어가는 시점을 1로 ^_^ 0부터시작이아니니까..
+		for i := 0; i < T; i++ {
+			thestr := Getstrline()
 
-		result := pr([]byte(thestr), 0, len(thestr)-1)
-		strconv.Itoa(result)
-		tra := strconv.Itoa(count)
-		Writer.WriteString(strconv.Itoa(result) + " " + tra + "\n")
-		count = 1
-	}
+			result := pr([]byte(thestr), 0, len(thestr)-1)
+			strconv.Itoa(result)
+			tra := strconv.Itoa(count)
+			Writer.WriteString(strconv.Itoa(result) + " " + tra + "\n")
+			count = 1
+		}
+	*/
+
+	fmt.Println(gallaxy(4, memo))
 
 }
 
