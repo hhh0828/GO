@@ -1,7 +1,11 @@
 package main
 
 //재귀, dynamic program 과 친해져보기...
-import "fmt"
+import (
+	"bufio"
+	"os"
+	"strconv"
+)
 
 func main() {
 	//n := 0
@@ -9,7 +13,49 @@ func main() {
 	//fmt.Scanln(&n)
 	//fmt.Println(factorialrecur(n))
 
-	fmt.Println(factoraldynp(10))
+	//kora := "ABBA"
+	//bytekora := []byte(kora)
+	//fmt.Println(prh(bytekora, 0, len(bytekora)-1))
+	//fmt.Println(pr(bytekora, 0, len(bytekora)-1))
+	//fmt.Println(factoraldynp(10))
+	T := Getint()
+	defer Writer.Flush()
+	count = 1 // 들어가는 시점을 1로 ^_^ 0부터시작이아니니까..
+	for i := 0; i < T; i++ {
+		thestr := Getstrline()
+
+		result := pr([]byte(thestr), 0, len(thestr)-1)
+		strconv.Itoa(result)
+		tra := strconv.Itoa(count)
+		Writer.WriteString(strconv.Itoa(result) + " " + tra + "\n")
+		count = 1
+	}
+
+}
+
+//편법으로 풀어보기 - 안먹힘 ㅋㅋ - 예외처리안됨.
+//정석으로 풀어보자
+//펠린드롬의 문자열의 갯수 N/2 +2 >> 홀수 개의 스택수
+// N/2 +1 >> 짝수개의 스택수
+
+var (
+	Reader *bufio.Reader
+	Writer *bufio.Writer
+)
+
+func init() {
+	Reader = bufio.NewReaderSize(os.Stdin, 10)
+	Writer = bufio.NewWriter(os.Stdout)
+}
+
+func Getint() int {
+	a, _, _ := Reader.ReadLine()
+	transferreda, _ := strconv.Atoi(string(a))
+	return transferreda
+}
+func Getstrline() string {
+	a, _, _ := Reader.ReadLine()
+	return string(a)
 }
 
 //팩토리얼>
@@ -40,7 +86,7 @@ func factorialrecur(n int) int {
 	return m[n]
 }
 
-//바텀업 방식이라고 하더라. //n값 20이라고 가정하고...
+// 바텀업 방식이라고 하더라. //n값 20이라고 가정하고...
 func factoraldynp(n int) int {
 
 	m[0] = 1
