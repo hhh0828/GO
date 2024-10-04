@@ -86,7 +86,23 @@ m가지의 가짓수크기의 memo를 만들고 만든 메모에서.....
 
 
 
+
+
+
 */
+
+var memo [][]int
+
+func FindMaxbottomup(WholeBin [][]int) int {
+
+	for i := len(WholeBin) - 2; i >= 0; i-- {
+		for j := 0; j < len(WholeBin[i]); j++ {
+			memo[i][j] += max(memo[i+1][j], memo[i+1][j+1])
+		}
+	}
+	return memo[0][0]
+}
+
 func Addelements(WholeBin [][]int) *Bin {
 	//root 지정
 	root := NewBin(WholeBin[0][0], 0) // 0층의 가장 맨앞 맨앞 값. this is root bin.
