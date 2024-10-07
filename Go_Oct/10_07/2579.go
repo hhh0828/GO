@@ -2,7 +2,6 @@ package main
 
 import (
 	"bufio"
-	"fmt"
 	"os"
 	"strconv"
 )
@@ -24,38 +23,29 @@ func main() {
 	//nums of stairs that needs to be added
 	N := Readint()
 	Memo := make([]int, N+1)
-	Memo[0] = 0
-	Memo[1] = Readint()
+
+	Stairs := make([]int, N+1)
 
 	//N 번째 계단에서의 최대값.
-	Switching := true
-	Code := 0
-	for i := 2; i <= N; i++ {
-		//내가 선택한 계단,
-		Memo[i] = Readint()
-		if Switching {
-			if Max(Memo[i-1], Memo[i-2]) == Memo[i-2] {
-				Switching = false
-			}
-			Memo[i] += Max(Memo[i-1], Memo[i-2])
-			Code++
-			if Code == 2 {
-				fmt.Println("두칸2번올랐다...")
-				Switching = true
-			}
-		} else {
-			fmt.Println("선택 2칸오르키")
-			Memo[i] += Memo[i-2]
-			Code = 0
-			Switching = false
-		}
-
-		//세 계단을 연속해서 오르는 경우를 빼줘야함.
-		//계단을 하나씩 두번 오른경우는 false로 스위칭.하여
-
+	for i := 1; i <= N; i++ {
+		// init each stair scores
+		Stairs[i] = Readint()
 	}
-	fmt.Println(Memo[N])
+	//fmt.Println(Memo)
+	//Dp start
+	Memo[0] = 0
 
+	Memo[1] = Stairs[1]
+	if N >= 2 {
+		Memo[2] = Stairs[1] + Stairs[2]
+	}
+	for i := 3; i <= N; i++ { // 계단을 오르는 경우의수, 즉 n-1 n-1 n-1 을 제외한.
+		//N-2 + current score, N-2 + N-1 + N-1
+		Memo[i] += Max(Memo[i-2]+Stairs[i], Memo[i-3]+Stairs[i-1]+Stairs[i])
+	}
+	//
+	Writer.WriteString(strconv.Itoa(Memo[N]))
+	Writer.Flush()
 }
 
 /*
